@@ -1,0 +1,32 @@
+class Solution{
+    int ans;
+    void height(Node* root, int h, int &max_h){
+        if(!root) return;
+        if(ans == 0) return;
+        
+        if(!root->left && !root->right){
+            if(max_h == -1){
+                max_h = h;
+            }
+            else{
+                if(h != max_h){
+                    ans = 0;
+                }
+            }
+            return;
+        }
+        height(root->left, h+1, max_h);
+        height(root->right, h+1, max_h);
+    }
+  public:
+    /*You are required to complete this method*/
+    bool check(Node *root)
+    {
+        //Your code here
+        int max_h = -1;
+        int h = 0;
+        ans = 1;
+        height(root,h,max_h);
+        return ans;
+    }
+};
