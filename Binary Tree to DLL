@@ -1,0 +1,36 @@
+class Solution
+{
+    public: 
+    //concept: we will do inorder traversal 
+    // whenit is first node we need to point both pointer on it 
+    
+    // using reference coz we want to update them
+    void inorder(Node* root, Node* &head, Node* &prev, int flag){
+        if(!root) return;
+        
+        inorder(root->left, head, prev, flag);
+        
+        if(flag == 0){ // first time adding node in DLL 
+            flag = 1; // so that now all nodes are not adding first time 
+            head = root;
+            prev = root;
+        }
+        else{         // means already there is a node 
+            prev->right = root;
+            prev-right->left = prev;
+            prev = prev->right;
+        }
+        
+        inorder(root->right, head, prev, flag);
+    }
+    
+    Node * bToDLL(Node *root)
+    {
+        Node* head = NULL;
+        Node* prev = NULL;
+        int flag = 0;
+        
+        inorder(root,head, prev, flag);
+        return head;
+    }
+};
